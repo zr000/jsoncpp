@@ -195,8 +195,11 @@ private:
       duplicateOnCopy
     };
     CZString(ArrayIndex index);
-    CZString(char const* str, unsigned length, DuplicationPolicy allocate);
-    CZString(CZString const& other);
+    CZString(const char* cstr, unsigned length, DuplicationPolicy allocate);
+    CZString(const CZString& other);
+#if JSON_HAS_RVALUE_REFERENCES
+    CZString(CZString&& other);
+#endif
     ~CZString();
     CZString& operator=(CZString other);
     bool operator<(CZString const& other) const;
@@ -279,6 +282,10 @@ Json::Value obj_value(Json::objectValue); // {}
   Value(bool value);
   /// Deep copy.
   Value(const Value& other);
+#if JSON_HAS_RVALUE_REFERENCES
+  /// Move constructor
+  Value(Value&& other);
+#endif
   ~Value();
 
   /// Deep copy, then swap(other).
