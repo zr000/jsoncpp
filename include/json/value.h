@@ -234,6 +234,8 @@ public:
 #endif // ifndef JSONCPP_DOC_EXCLUDE_IMPLEMENTATION
 
 public:
+  struct StaticInitTag {};
+  Value(StaticInitTag); ///< A special constructor for Value::null.
   /** \brief Create a default Value of the given type.
 
     This is a very useful constructor.
@@ -249,8 +251,6 @@ Json::Value arr_value(Json::arrayValue); // []
 Json::Value obj_value(Json::objectValue); // {}
 \endcode
   */
-  struct StaticInitTag {};
-  Value(StaticInitTag);
   Value(ValueType type = nullValue);
   Value(Int value);
   Value(UInt value);
